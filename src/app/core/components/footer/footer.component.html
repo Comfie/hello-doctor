@@ -1,0 +1,112 @@
+<footer class="bg-gradient-to-r from-indigo-900 to-indigo-700 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Brand Column -->
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <div class="bg-white p-2 rounded-lg mr-3">
+            <svg class="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </div>
+          <h2 class="text-2xl font-bold">Hello Doctor</h2>
+        </div>
+        <p class="text-indigo-200 text-sm leading-relaxed">
+          Your trusted digital healthcare partner. Connecting patients with pharmacies and doctors for seamless healthcare experiences.
+        </p>
+        <div class="flex space-x-4 pt-2">
+          <div *ngFor="let social of socialLinks" class="group">
+            <a [href]="social.link" class="block p-2 bg-indigo-800 rounded-full hover:bg-indigo-600 transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path [attr.d]="social.icon"></path>
+              </svg>
+              <span class="sr-only">{{social.platform}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 border-b border-indigo-400 pb-2">Quick Links</h3>
+        <ul class="space-y-2">
+          <li *ngFor="let link of quickLinks">
+            <a [routerLink]="link.link" class="text-indigo-200 hover:text-white transition-colors flex items-center">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+              {{link.name}}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 border-b border-indigo-400 pb-2">Contact Us</h3>
+        <ul class="space-y-3">
+          <li *ngFor="let contact of contactInfo" class="flex items-start">
+            <svg class="w-5 h-5 text-indigo-300 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="contact.icon"></path>
+            </svg>
+            <span class="text-indigo-200">{{contact.text}}</span>
+          </li>
+        </ul>
+        <div class="mt-6">
+          <h4 class="font-medium mb-2">Business Hours</h4>
+          <p class="text-sm text-indigo-200">Monday - Friday: 8am - 8pm</p>
+          <p class="text-sm text-indigo-200">Saturday & Sunday: 9am - 5pm</p>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4 border-b border-indigo-400 pb-2">Stay Updated</h3>
+        <p class="text-indigo-200 mb-4">
+          Subscribe to our newsletter for healthcare tips and system updates.
+        </p>
+        <form class="space-y-3">
+          <div>
+            <label for="email" class="sr-only">Email address</label>
+            <div class="relative">
+              <input 
+                type="email" 
+                id="email" 
+                placeholder="Your email address"
+                class="w-full px-4 py-2 rounded-lg bg-indigo-800 border border-indigo-600 text-white placeholder-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+              >
+              <button 
+                type="submit"
+                class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 hover:bg-indigo-500 text-white p-1 rounded-md transition-colors"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <p class="text-xs text-indigo-300">
+            We respect your privacy. Unsubscribe at any time.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="border-t border-indigo-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-indigo-300 text-sm">
+          &copy; {{currentYear}} Hello Doctor System. All rights reserved.
+        </p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <img src="/assets/payment-methods/visa.svg" alt="Visa" class="h-6 opacity-80">
+          <img src="/assets/payment-methods/mastercard.svg" alt="Mastercard" class="h-6 opacity-80">
+          <!-- <img src="/assets/payment-methods/paypal.svg" alt="PayPal" class="h-6 opacity-80">
+          <img src="/assets/payment-methods/apple-pay.svg" alt="Apple Pay" class="h-6 opacity-80"> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

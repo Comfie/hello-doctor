@@ -1,0 +1,52 @@
+/* features.component.css */
+/* Animation for feature cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply staggered animations */
+.feature-card:nth-child(1) {
+  animation: fadeInUp 0.6s ease forwards;
+}
+.feature-card:nth-child(2) {
+  animation: fadeInUp 0.6s ease 0.2s forwards;
+}
+.feature-card:nth-child(3) {
+  animation: fadeInUp 0.6s ease 0.4s forwards;
+}
+.feature-card:nth-child(4) {
+  animation: fadeInUp 0.6s ease 0.6s forwards;
+}
+.feature-card:nth-child(5) {
+  animation: fadeInUp 0.6s ease 0.8s forwards;
+}
+.feature-card:nth-child(6) {
+  animation: fadeInUp 0.6s ease 1s forwards;
+}
+
+/* Hover effects */
+.hover-scale {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonial card styling */
+.testimonial-card {
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}

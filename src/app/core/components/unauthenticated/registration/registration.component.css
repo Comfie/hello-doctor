@@ -1,0 +1,37 @@
+/* registration.component.css */
+/* Custom animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Password strength indicator transition */
+.password-strength-bar {
+  transition: width 0.3s ease;
+}
+
+/* Form input focus styles */
+.focus\:ring-indigo-500:focus {
+  --tw-ring-color: rgba(79, 70, 229, 0.5);
+  box-shadow: 0 0 0 3px var(--tw-ring-color);
+}
+
+/* Error state styles */
+.border-red-300 {
+  border-color: #fca5a5;
+}
+
+.text-red-600 {
+  color: #dc2626;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .sm\:grid-cols-6 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

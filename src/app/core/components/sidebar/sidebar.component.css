@@ -1,0 +1,20 @@
+/* sidebar.component.css */
+:host {
+  display: block;
+  height: 100%;
+}
+
+nav ul li a.router-link-active {
+  position: relative;
+}
+
+nav ul li a.router-link-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: #4f46e5;
+  border-radius: 0 4px 4px 0;
+}

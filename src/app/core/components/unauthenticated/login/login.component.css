@@ -1,0 +1,30 @@
+/* login.component.css */
+/* Animation for loading spinner */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Form input focus styles */
+.focus\:ring-indigo-500:focus {
+  --tw-ring-color: rgba(79, 70, 229, 0.5);
+  box-shadow: 0 0 0 3px var(--tw-ring-color);
+}
+
+/* Error state styles */
+.border-red-300 {
+  border-color: #fca5a5;
+}
+
+.text-red-600 {
+  color: #dc2626;
+}
+
+/* Transition for password reset toggle */
+.password-reset-toggle {
+  transition: all 0.3s ease;
+}

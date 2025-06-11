@@ -1,0 +1,50 @@
+/* faq.component.css */
+/* Animation for FAQ items */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+details[open] summary ~ * {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Hover effects for category headers */
+.category-header {
+  transition: all 0.3s ease;
+}
+
+.category-header:hover {
+  transform: translateX(5px);
+}
+
+/* Search input focus effect */
+#faq-search:focus {
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+/* Styling for the left border on category questions */
+.category-questions {
+  position: relative;
+}
+
+.category-questions::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.category:hover .category-questions::before {
+  background-color: #4f46e5;
+}

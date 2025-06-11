@@ -1,0 +1,148 @@
+<!-- header.component.html -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a routerLink="/" class="flex items-center">
+          <div class="bg-indigo-600 rounded-lg w-9 h-9 flex items-center justify-center">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </div>
+          <span class="ml-3 text-xl font-bold text-gray-800">Hello Doctor</span>
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex md:ml-10">
+          <div *ngIf="!isAuthenticated" class="flex space-x-8">
+            <a *ngFor="let item of publicNavItems" 
+               [routerLink]="item.route"
+               class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">
+              {{ item.label }}
+            </a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Desktop Right Section -->
+      <div class="flex items-center">
+        <!-- Quick Actions (Authenticated) -->
+        <div *ngIf="isAuthenticated" class="hidden md:flex items-center space-x-4">
+          <div *ngFor="let action of userActions" class="relative">
+            <a [routerLink]="action.route" 
+               class="flex items-center justify-center p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-indigo-600 transition-colors"
+               tooltip="action.label">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="action.icon"></path>
+              </svg>
+            </a>
+          </div>
+          
+          <!-- Notifications -->
+          <button class="p-2 rounded-full hover:bg-gray-100 text-gray-600 hover:text-indigo-600 transition-colors relative">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
+        </div>
+        
+        <!-- Auth Buttons (Unauthenticated) -->
+        <div *ngIf="!isAuthenticated" class="hidden md:flex items-center space-x-4">
+          <a routerLink="/login" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">Log in</a>
+          <a routerLink="/registration" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors">
+            Sign Up
+          </a>
+        </div>
+        
+        <!-- User Profile (Authenticated) -->
+        <div *ngIf="isAuthenticated" class="ml-4 relative">
+          <button (click)="showUserDropdown = !showUserDropdown" class="flex items-center max-w-xs rounded-full focus:outline-none">
+            <img class="h-8 w-8 rounded-full object-cover" [src]="userAvatar" alt="User profile">
+            <span class="hidden md:inline ml-2 text-sm font-medium text-gray-700">{{ userName }}</span>
+            <svg class="ml-1 w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          
+          <!-- User Dropdown -->
+          <div *ngIf="showUserDropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-50">
+            <div class="px-4 py-2 border-b">
+              <p class="text-sm font-medium text-gray-900">{{ userName }}</p>
+              <p class="text-xs text-gray-500 capitalize">{{ userRole?.replace('-', ' ') }}</p>
+            </div>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+            <a (click)="logout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Sign out</a>
+          </div>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <button (click)="showMobileMenu = !showMobileMenu" class="md:hidden ml-4 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path *ngIf="!showMobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            <path *ngIf="showMobileMenu" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div *ngIf="showMobileMenu" class="md:hidden bg-white border-t border-gray-200">
+    <div class="pt-2 pb-3 space-y-1">
+      <!-- Public Navigation -->
+      <div *ngIf="!isAuthenticated">
+        <a *ngFor="let item of publicNavItems" 
+           [routerLink]="item.route"
+           (click)="showMobileMenu = false"
+           class="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">
+          {{ item.label }}
+        </a>
+      </div>
+      
+      <!-- Authenticated User Actions -->
+      <div *ngIf="isAuthenticated">
+        <div *ngFor="let action of userActions" class="border-b border-gray-200">
+          <a [routerLink]="action.route" 
+             (click)="showMobileMenu = false"
+             class="flex items-center py-3 px-4 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">
+            <svg class="w-5 h-5 mr-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="action.icon"></path>
+            </svg>
+            {{ action.label }}
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Auth Buttons (Mobile) -->
+    <div class="pt-4 pb-3 border-t border-gray-200">
+      <div *ngIf="isAuthenticated" class="flex items-center px-4">
+        <div class="flex-shrink-0">
+          <img class="h-10 w-10 rounded-full" [src]="userAvatar" alt="User profile">
+        </div>
+        <div class="ml-3">
+          <div class="text-base font-medium text-gray-800">{{ userName }}</div>
+          <div class="text-sm font-medium text-gray-500 capitalize">{{ userRole?.replace('-', ' ') }}</div>
+        </div>
+      </div>
+      
+      <div class="mt-3 space-y-1 px-2">
+        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Your Profile</a>
+        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Settings</a>
+        <a (click)="logout()" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 cursor-pointer">Sign out</a>
+      </div>
+      
+      <div *ngIf="!isAuthenticated" class="flex flex-col space-y-3 px-4 py-5">
+        <a routerLink="/login" (click)="showMobileMenu = false" class="w-full text-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
+          Log in
+        </a>
+        <a routerLink="/signup" (click)="showMobileMenu = false" class="w-full text-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+          Sign up
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
