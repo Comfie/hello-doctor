@@ -1,0 +1,24 @@
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { FooterSimpleComponent } from '../../core/components/footer-simple/footer-simple.component';
+import { HeaderComponent } from '../../core/components/header/header.component';
+import { SidebarComponent } from '../../core/components/sidebar/sidebar.component';
+import { NgClass } from '@angular/common';
+
+@Component({
+  selector: 'app-auth-layout',
+  imports: [
+    RouterOutlet,
+    FooterSimpleComponent,
+    HeaderComponent,
+    SidebarComponent,
+  ],
+  templateUrl: './auth-layout.component.html',
+  styleUrls: ['./auth-layout.component.css'],
+})
+export class AuthLayoutComponent implements OnInit {
+  isSidebarCollapsed = false;
+  constructor() {}
+
+  ngOnInit() {}
+}

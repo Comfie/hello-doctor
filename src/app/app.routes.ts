@@ -1,41 +1,31 @@
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
-import { HowItWorksComponent } from './core/components/unauthenticated/how-it-works/how-it-works.component';
+import { HowItWorksComponent } from './features/public/how-it-works/how-it-works.component';
+import { PublicLayoutComponent } from './layouts/public-layout/public-layout.component';
+import { LoginComponent } from './features/public/login/login.component';
+import { RegistrationComponent } from './features/public/registration/registration.component';
+import { FaqComponent } from './features/public/faq/faq.component';
+import { LandingPageComponent } from './features/public/landing-page/landing-page.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  // { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
-    path: 'landing',
-    loadComponent: () =>
-      import(
-        './core/components/unauthenticated/landing-page/landing-page.component'
-      ).then((m) => m.LandingPageComponent),
+    path: '',
+    component: PublicLayoutComponent,
+    children: [
+      {path: '', component: LandingPageComponent },
+      {path: 'features', component: HowItWorksComponent },
+      {path: 'how-it-works', component: HowItWorksComponent },
+      {path: 'faq', component: FaqComponent },
+      {path: 'registration', component: RegistrationComponent },
+      {path: 'login', component: LoginComponent },
+    ],
   },
-  { path: 'how-it-works', component: HowItWorksComponent },
   {
-    path: 'faq',
-    loadComponent: () =>
-      import('./core/components/unauthenticated/faq/faq.component').then(
-        (m) => m.FaqComponent
-      ),
+    path: 'auth',
+    loadChildren: () =>
+      import('./features/auth/auth.module').then((m) => m.AuthModule),
   },
-    { path: 'registration',
-    loadComponent: () =>
-      import(
-        './core/components/unauthenticated/registration/registration.component'
-      ).then((m) => m.RegistrationComponent),
-  },
-    {
-    path: 'login',
-    loadComponent: () =>
-      import(
-        './core/components/unauthenticated/login/login.component'
-      ).then((m) => m.LoginComponent), 
-    },
-    {
-      path: 'features',
-      loadComponent: () =>
-        import(
-          './core/components/unauthenticated/features/features.component'
-        ).then((m) => m.FeaturesComponent),   
-    }
+  // Fallback
+  { path: '**', redirectTo: '' },
 ];

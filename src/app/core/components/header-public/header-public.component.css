@@ -1,0 +1,10 @@
+/* header.component.css */
+:host {
+  display: block;
+}
+
+/* Add smooth transitions for dropdown */
+[class*='dropdown'] {
+  transition: all 0.3s ease;
+  transform-origin: top right;
+}

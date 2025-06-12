@@ -1,7 +1,6 @@
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FooterComponent } from "../footer/footer.component";
 
 interface NavItem {
   label: string;
@@ -13,7 +12,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NgIf, CommonModule, RouterLink, FooterComponent],
+  imports: [NgIf, CommonModule, RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })

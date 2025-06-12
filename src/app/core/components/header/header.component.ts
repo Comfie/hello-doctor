@@ -1,4 +1,3 @@
-// header.component.ts
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -17,16 +16,7 @@ export class HeaderComponent {
   
   showMobileMenu = false;
   showUserDropdown = false;
-  
-  // Navigation items for unauthenticated users
-  publicNavItems = [
-    { label: 'Home', route: '/' },
-    { label: 'Features', route: '/features' },
-    { label: 'How It Works', route: '/how-it-works' },
-    { label: 'For Pharmacies', route: '/pharmacies' },
-    { label: 'For Doctors', route: '/doctors' },
-    { label: 'Pricing', route: '/pricing' },
-  ];
+  isSidebarCollapsed = false;
 
   // Quick actions based on role
   roleActions: { [key: string]: any[] } = {

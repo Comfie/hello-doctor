@@ -1,0 +1,23 @@
+<div class="flex min-h-screen">
+  <!-- Sidebar (stretches full height) -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main content (includes header + router content) -->
+  <div class="flex flex-col flex-1">
+    <!-- Header (moved inside main content) -->
+    <app-header
+      [isAuthenticated]="true"
+      [userRole]="'super-admin'"
+      [userName]="'Comfort Osei'"
+      [userAvatar]="'assets/default-avatar.png'">
+    </app-header>
+
+    <!-- Page content -->
+    <main class="flex-1 p-4 overflow-auto">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer -->
+    <app-footer-simple></app-footer-simple>
+  </div>
+</div>

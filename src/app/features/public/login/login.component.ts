@@ -46,7 +46,7 @@ export class LoginComponent {
     // Simulate API call
     setTimeout(() => {
       this.loading = false;
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/auth/dashboard']);
     }, 1500);
   }
 

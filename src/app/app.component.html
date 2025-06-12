@@ -1,13 +1,1 @@
-<!-- app.component.html -->
-<div class="flex flex-col min-h-screen">
-  <app-header
-    [isAuthenticated]="false"
-    [userRole]="'super-admin'"
-    [userName]="'Comfort Osei'"
-    [userAvatar]="'assets/default-avatar.png'"></app-header>
-  
-  <main class="flex-grow">
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
-</div>
+<router-outlet></router-outlet>

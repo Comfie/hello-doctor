@@ -3,7 +3,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <!-- Logo -->
-      <div class="flex items-center">
+      <!-- <div class="flex items-center">
         <a routerLink="/" class="flex items-center">
           <div class="bg-indigo-600 rounded-lg w-9 h-9 flex items-center justify-center">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -12,21 +12,11 @@
           </div>
           <span class="ml-3 text-xl font-bold text-gray-800">Hello Doctor</span>
         </a>
-        
-        <!-- Desktop Navigation -->
-        <nav class="hidden md:flex md:ml-10">
-          <div *ngIf="!isAuthenticated" class="flex space-x-8">
-            <a *ngFor="let item of publicNavItems" 
-               [routerLink]="item.route"
-               class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">
-              {{ item.label }}
-            </a>
-          </div>
-        </nav>
-      </div>
+      
+      </div> -->
 
       <!-- Desktop Right Section -->
-      <div class="flex items-center">
+      <div class="ml-auto flex items-center">
         <!-- Quick Actions (Authenticated) -->
         <div *ngIf="isAuthenticated" class="hidden md:flex items-center space-x-4">
           <div *ngFor="let action of userActions" class="relative">
@@ -47,14 +37,7 @@
             <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
           </button>
         </div>
-        
-        <!-- Auth Buttons (Unauthenticated) -->
-        <div *ngIf="!isAuthenticated" class="hidden md:flex items-center space-x-4">
-          <a routerLink="/login" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors">Log in</a>
-          <a routerLink="/registration" class="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 transition-colors">
-            Sign Up
-          </a>
-        </div>
+      
         
         <!-- User Profile (Authenticated) -->
         <div *ngIf="isAuthenticated" class="ml-4 relative">
@@ -93,14 +76,6 @@
   <div *ngIf="showMobileMenu" class="md:hidden bg-white border-t border-gray-200">
     <div class="pt-2 pb-3 space-y-1">
       <!-- Public Navigation -->
-      <div *ngIf="!isAuthenticated">
-        <a *ngFor="let item of publicNavItems" 
-           [routerLink]="item.route"
-           (click)="showMobileMenu = false"
-           class="block py-2 pl-3 pr-4 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">
-          {{ item.label }}
-        </a>
-      </div>
       
       <!-- Authenticated User Actions -->
       <div *ngIf="isAuthenticated">
@@ -133,15 +108,6 @@
         <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Your Profile</a>
         <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50">Settings</a>
         <a (click)="logout()" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 cursor-pointer">Sign out</a>
-      </div>
-      
-      <div *ngIf="!isAuthenticated" class="flex flex-col space-y-3 px-4 py-5">
-        <a routerLink="/login" (click)="showMobileMenu = false" class="w-full text-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
-          Log in
-        </a>
-        <a routerLink="/signup" (click)="showMobileMenu = false" class="w-full text-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-          Sign up
-        </a>
       </div>
     </div>
   </div>
