@@ -1,0 +1,20 @@
+.status-indicator {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.status-operational {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-degraded {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-down {
+  background-color: #fee2e2;
+  color: #991b1b;
+}

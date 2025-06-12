@@ -1,9 +1,5 @@
-<!-- sidebar.component.html -->
-<aside 
-  class="flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300 ease-in-out"
-  [class.w-64]="isExpanded"
-  [class.w-20]="!isExpanded"
->
+<aside class="flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300 ease-in-out"
+  [class.w-64]="isExpanded" [class.w-20]="!isExpanded">
   <!-- Logo Section -->
   <div class="flex items-center justify-between p-4 border-b border-gray-200">
     <div class="flex items-center" *ngIf="isExpanded">
@@ -14,96 +10,78 @@
       </div>
       <span class="ml-3 text-xl font-bold text-gray-800">Hello Doctor</span>
     </div>
-    
-    <button 
-      (click)="isExpanded = !isExpanded"
-      class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none"
-    >
+
+    <button (click)="isExpanded = !isExpanded" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none">
       <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path 
-          stroke-linecap="round" 
-          stroke-linejoin="round" 
-          stroke-width="2" 
-          [attr.d]="isExpanded ? 
-            'M4 6h16M4 12h16M4 18h7' : 
-            'M4 6h16M4 12h16M4 18h16'"
-        ></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="isExpanded ? 
+              'M4 6h16M4 12h16M4 18h7' : 
+              'M4 6h16M4 12h16M4 18h16'"></path>
       </svg>
     </button>
   </div>
 
-  <!-- Navigation -->
-  <nav class="flex-1 overflow-y-auto py-4">
-    <ul>
-      <li *ngFor="let item of filteredNavItems">
-        <div *ngIf="!item.children; else withChildren">
-          <a 
-            [routerLink]="item.route"
-            routerLinkActive="bg-indigo-50 text-indigo-700"
-            class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon"></path>
-            </svg>
-            <span *ngIf="isExpanded" class="ml-3">{{ item.label }}</span>
-          </a>
-        </div>
-
-        <ng-template #withChildren>
-          <div>
-            <button 
-              (click)="toggleSubmenu(item.label)"
-              class="flex items-center justify-between w-full px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200"
-            >
-              <div class="flex items-center">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon"></path>
-                </svg>
-                <span *ngIf="isExpanded" class="ml-3">{{ item.label }}</span>
-              </div>
-              <svg 
-                *ngIf="isExpanded"
-                class="w-4 h-4 transform transition-transform"
-                [class.rotate-180]="activeSubmenu === item.label"
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+  <!-- Navigation and profile wrapper -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+    <!-- Navigation (scrollable) -->
+    <nav class="flex-1 overflow-y-auto py-4" style="max-height: calc(100vh - 160px);">
+      <ul>
+        <li *ngFor="let item of navItems">
+          <div *ngIf="!item.children; else withChildren">
+            <a [routerLink]="item.route" routerLinkActive="bg-indigo-50 text-indigo-700"
+              class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon"></path>
               </svg>
-            </button>
-
-            <div 
-              *ngIf="isExpanded && activeSubmenu === item.label"
-              class="pl-12 bg-gray-50 overflow-hidden transition-all duration-300"
-            >
-              <ul>
-                <li *ngFor="let child of item.children">
-                  <a 
-                    [routerLink]="child.route"
-                    routerLinkActive="text-indigo-600 font-medium"
-                    class="block py-2 px-4 text-sm text-gray-600 hover:text-indigo-600 transition-colors duration-200"
-                  >
-                    {{ child.label }}
-                  </a>
-                </li>
-              </ul>
-            </div>
+              <span *ngIf="isExpanded" class="ml-3">{{ item.label }}</span>
+            </a>
           </div>
-        </ng-template>
-      </li>
-    </ul>
-  </nav>
 
-  <!-- User Profile -->
-  <div class="border-t border-gray-200 p-4">
-    <div class="flex items-center" *ngIf="isExpanded">
-      <img [src]="userAvatar" alt="User" class="w-10 h-10 rounded-full object-cover">
-      <div class="ml-3">
-        <p class="text-sm font-medium text-gray-800">{{ userName }}</p>
-        <p class="text-xs text-gray-500 capitalize">{{ currentRole.replace('-', ' ') }}</p>
+          <ng-template #withChildren>
+            <div>
+              <button (click)="toggleSubmenu(item.label)"
+                class="flex items-center justify-between w-full px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+                <div class="flex items-center">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon"></path>
+                  </svg>
+                  <span *ngIf="isExpanded" class="ml-3">{{ item.label }}</span>
+                </div>
+                <svg *ngIf="isExpanded" class="w-4 h-4 transform transition-transform"
+                  [class.rotate-180]="activeSubmenu === item.label" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+
+              <div *ngIf="isExpanded && activeSubmenu === item.label"
+                class="pl-12 bg-gray-50 overflow-hidden transition-all duration-300">
+                <ul>
+                  <li *ngFor="let child of item.children">
+                    <a [routerLink]="child.route" routerLinkActive="text-indigo-600 font-medium"
+                      class="block py-2 px-4 text-sm text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                      {{ child.label }}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Profile at bottom (fixed) -->
+    <div class="mt-auto border-t border-gray-200 p-4">
+      <div class="flex items-center" *ngIf="isExpanded">
+        <img [src]="userAvatar" alt="User" class="w-10 h-10 rounded-full object-cover">
+        <div class="ml-3">
+          <p class="text-sm font-medium text-gray-800">{{ userName }}</p>
+          <p class="text-xs text-gray-500 capitalize">{{ currentRole.replace('-', ' ') }}</p>
+        </div>
       </div>
-    </div>
-    <div class="flex justify-center" *ngIf="!isExpanded">
-      <img [src]="userAvatar" alt="User" class="w-8 h-8 rounded-full object-cover">
+      <div class="flex justify-center" *ngIf="!isExpanded">
+        <img [src]="userAvatar" alt="User" class="w-8 h-8 rounded-full object-cover">
+      </div>
     </div>
   </div>
 </aside>

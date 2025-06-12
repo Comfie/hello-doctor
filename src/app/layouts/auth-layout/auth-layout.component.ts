@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterSimpleComponent } from '../../core/components/footer-simple/footer-simple.component';
 import { HeaderComponent } from '../../core/components/header/header.component';
-import { SidebarComponent } from '../../core/components/sidebar/sidebar.component';
-import { NgClass } from '@angular/common';
+import { SidebarComponent } from "../../core/components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-auth-layout',
@@ -11,8 +10,8 @@ import { NgClass } from '@angular/common';
     RouterOutlet,
     FooterSimpleComponent,
     HeaderComponent,
-    SidebarComponent,
-  ],
+    SidebarComponent
+],
   templateUrl: './auth-layout.component.html',
   styleUrls: ['./auth-layout.component.css'],
 })

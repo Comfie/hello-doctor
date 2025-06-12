@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { NgClass, NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 

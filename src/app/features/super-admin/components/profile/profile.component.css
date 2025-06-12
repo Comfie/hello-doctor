@@ -1,0 +1,28 @@
+.card {
+    border: rgb(92, 92, 92) 1px solid;
+    border-radius: 0.5rem;
+  }
+  
+  .rounded-circle {
+    object-fit: cover;
+  }
+  
+  .input-group-text {
+    background-color: #f8f9fa;
+  }
+  
+  .invalid-feedback {
+    display: block;
+  }
+
+  .progress {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+  }
+  
+  .password-requirements {
+    ul {
+      padding-left: 1.2rem;
+      margin-top: 0.5rem;
+    }
+  }

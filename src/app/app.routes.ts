@@ -6,6 +6,7 @@ import { LoginComponent } from './features/public/login/login.component';
 import { RegistrationComponent } from './features/public/registration/registration.component';
 import { FaqComponent } from './features/public/faq/faq.component';
 import { LandingPageComponent } from './features/public/landing-page/landing-page.component';
+import { FeaturesComponent } from './features/public/features/features.component';
 
 export const routes: Routes = [
   // { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -14,7 +15,7 @@ export const routes: Routes = [
     component: PublicLayoutComponent,
     children: [
       {path: '', component: LandingPageComponent },
-      {path: 'features', component: HowItWorksComponent },
+      {path: 'features', component: FeaturesComponent },
       {path: 'how-it-works', component: HowItWorksComponent },
       {path: 'faq', component: FaqComponent },
       {path: 'registration', component: RegistrationComponent },
@@ -22,9 +23,14 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'auth',
+    path: 'main-member',
     loadChildren: () =>
-      import('./features/auth/auth.module').then((m) => m.AuthModule),
+      import('./features/main-member/main-member.module').then((m) => m.MainMemberModule),
+  },
+  {
+    path: 'super-admin',
+    loadChildren: () =>
+      import('./features/super-admin/super-admin.module').then((m) => m.SuperAdminModule),
   },
   // Fallback
   { path: '**', redirectTo: '' },

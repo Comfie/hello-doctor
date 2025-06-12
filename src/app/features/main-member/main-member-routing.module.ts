@@ -1,9 +1,10 @@
+import { MainMemberModule } from './main-member.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { AuthLayoutComponent } from '../../layouts/auth-layout/auth-layout.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { 
@@ -23,4 +24,4 @@ const routes: Routes = [
     RouterModule.forChild(routes) 
   ]
 })
-export class AuthRoutingModule { }
+export class MainMemberRoutingModule { }

@@ -1,0 +1,146 @@
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <!-- Header -->
+      <div class="bg-indigo-700 px-6 py-6">
+        <h2 class="text-2xl font-bold text-white">System Settings</h2>
+        <p class="mt-1 text-indigo-200">Configure global system parameters and preferences</p>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="border-b border-gray-200">
+        <nav class="flex -mb-px">
+          <button *ngFor="let tab of tabs" 
+                  (click)="currentTab = tab.id"
+                  [class.border-indigo-500]="currentTab === tab.id"
+                  [class.text-indigo-600]="currentTab === tab.id"
+                  class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm">
+            {{ tab.name }}
+          </button>
+        </nav>
+      </div>
+
+      <!-- Tab Contents -->
+      <div class="p-6">
+        <!-- General Settings -->
+        <div *ngIf="currentTab === 'general'" class="space-y-6">
+          <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-4">
+              <label class="block text-sm font-medium text-gray-700">System Name</label>
+              <input type="text" [(ngModel)]="settings.systemName" 
+                     class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            </div>
+
+            <div class="sm:col-span-4">
+              <label class="block text-sm font-medium text-gray-700">Default Timezone</label>
+              <select [(ngModel)]="settings.timezone" 
+                      class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option *ngFor="let tz of timezones" [value]="tz">{{ tz }}</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <input type="checkbox" [(ngModel)]="settings.maintenanceMode" 
+                         class="h-4 w-4 rounded px-3 py-2 border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                </div>
+                <div class="ml-3 text-sm">
+                  <label class="font-medium text-gray-700">Maintenance Mode</label>
+                  <p class="text-gray-500">When enabled, only administrators can access the system</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Security Settings -->
+        <div *ngIf="currentTab === 'security'" class="space-y-6">
+          <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <input type="checkbox" [(ngModel)]="settings.require2FA" 
+                         class="h-4 w-4 px-3 py-2  rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                </div>
+                <div class="ml-3 text-sm">
+                  <label class="font-medium text-gray-700">Require Two-Factor Authentication</label>
+                  <p class="text-gray-500">Force all admin users to enable 2FA</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-4">
+              <label class="block text-sm font-medium text-gray-700">Password Policy</label>
+              <select [(ngModel)]="settings.passwordPolicy" 
+                      class="mt-1 block w-full px-3 py-2  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="low">Low (6+ characters)</option>
+                <option value="medium">Medium (8+ chars with mix)</option>
+                <option value="high">High (12+ chars with special)</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-4">
+              <label class="block text-sm font-medium text-gray-700">Session Timeout</label>
+              <select [(ngModel)]="settings.sessionTimeout" 
+                      class="mt-1 block w-full px-3 py-2  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="120">2 hours</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div *ngIf="currentTab === 'notifications'" class="space-y-6">
+          <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-6">
+              <h3 class="text-lg font-medium text-gray-900">Email Notifications</h3>
+            </div>
+
+            <div class="sm:col-span-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <input type="checkbox" [(ngModel)]="settings.notifications.systemAlerts" 
+                         class="h-4 w-4 px-3 py-2  rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                </div>
+                <div class="ml-3 text-sm">
+                  <label class="font-medium text-gray-700">System Alerts</label>
+                  <p class="text-gray-500">Critical system notifications</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sm:col-span-6">
+              <div class="flex items-start">
+                <div class="flex-shrink-0">
+                  <input type="checkbox" [(ngModel)]="settings.notifications.securityEvents" 
+                         class="h-4 w-4 px-3 py-2  rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                </div>
+                <div class="ml-3 text-sm">
+                  <label class="font-medium text-gray-700">Security Events</label>
+                  <p class="text-gray-500">Login attempts, permission changes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="mt-8 flex justify-end">
+          <button type="button" 
+                  class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Cancel
+          </button>
+          <button type="button" 
+                  (click)="saveSettings()"
+                  class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
