@@ -1,0 +1,208 @@
+<!-- role-management.component.html -->
+<div class="min-h-screen bg-gray-50">
+  <main class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
+    <!-- Page Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Role Management</h1>
+        <p class="mt-1 text-sm text-gray-500">Create, manage, and assign system roles</p>
+      </div>
+      <button (click)="openCreateRoleModal()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        Create New Role
+      </button>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="border-b border-gray-200 mb-6">
+      <nav class="flex -mb-px">
+        <button 
+          (click)="activeTab = 'roles'"
+          [class.border-indigo-500]="activeTab === 'roles'"
+          [class.text-indigo-600]="activeTab === 'roles'"
+          class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm"
+        >
+          Roles
+        </button>
+        <button 
+          (click)="activeTab = 'assignments'"
+          [class.border-indigo-500]="activeTab === 'assignments'"
+          [class.text-indigo-600]="activeTab === 'assignments'"
+          class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm"
+        >
+          Role Assignments
+        </button>
+      </nav>
+    </div>
+
+    <!-- Roles Tab -->
+    <div *ngIf="activeTab === 'roles'" class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">System Roles</h3>
+      </div>
+      
+      <!-- Roles Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Role Name
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Description
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Users
+              </th>
+              <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let role of roles" class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">{{ role.roleName }}</div>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-500">
+                {{ role.description || 'No description' }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span 
+                  [ngClass]="{
+                    'bg-green-100 text-green-800': role.isDeleted === false,
+                    'bg-red-100 text-red-800': role.isDeleted === true
+                  }" 
+                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                >
+                  {{ role.isDeleted === true ? 'Inactive' : 'Active' }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ role.userCount || 0 }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <button 
+                  (click)="toggleRoleStatus(role)" 
+                  [class.text-green-600]="role.isDeleted === true"
+                  [class.text-red-600]="role.isDeleted === false"
+                  class="mr-3 hover:text-indigo-900"
+                >
+                  {{ role.isDeleted === false ? 'Disable' : 'Enable' }}
+                </button>
+                <button (click)="deleteRole(role)" class="text-red-600 hover:text-red-900">Delete</button>
+              </td>
+            </tr>
+            <tr *ngIf="roles.length === 0">
+              <td colspan="5" class="px-6 py-4 text-center text-sm text-gray-500">
+                No roles found. Create your first role.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Assignments Tab -->
+    <div *ngIf="activeTab === 'assignments'" class="bg-white shadow rounded-lg">
+      <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Role Assignments</h3>
+      </div>
+      
+      <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- User Selection -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Select User</label>
+            <select [(ngModel)]="selectedUserId" (change)="loadUserRoles()" class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <option value="">Select a user</option>
+              <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }} ({{ user.email }})</option>
+            </select>
+          </div>
+          
+          <!-- Role Assignment -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Assign Role</label>
+            <div class="flex">
+              <select [(ngModel)]="roleToAssign" class="flex-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="">Select a role</option>
+                <option *ngFor="let role of activeRoles" [value]="role.roleName">{{ role.roleName }}</option>
+              </select>
+              <button 
+                (click)="assignRole()" 
+                [disabled]="!selectedUserId || !roleToAssign"
+                class="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
+              >
+                Assign
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- User's Current Roles -->
+        <div class="mt-8" *ngIf="selectedUserId">
+          <h4 class="text-md font-medium text-gray-900 mb-4">Current Roles</h4>
+          
+          <div *ngIf="userRoles.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let role of userRoles" class="bg-gray-50 rounded-lg p-4 flex justify-between items-center">
+              <div>
+                <div class="text-sm font-medium text-gray-900">{{ role }}</div>
+              </div>
+              <button 
+                (click)="removeRole(role)"
+                class="text-red-600 hover:text-red-900 text-sm"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <div *ngIf="userRoles.length === 0" class="text-center py-8 text-sm text-gray-500">
+            This user has no roles assigned.
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Create Role Modal -->
+<div *ngIf="showRoleModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h3 class="text-lg font-medium text-gray-900">Create New Role</h3>
+    </div>
+    <div class="p-6">
+      <form [formGroup]="roleForm" (ngSubmit)="saveRole()">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Role Name</label>
+          <input type="text" formControlName="roleName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+          <div *ngIf="roleForm.get('roleName')?.invalid && roleForm.get('roleName')?.touched" class="mt-1 text-sm text-red-600">
+            Role name is required
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Description</label>
+          <textarea formControlName="description" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"></textarea>
+        </div>
+        
+        <div class="flex justify-end space-x-3 mt-6">
+          <button type="button" (click)="closeRoleModal()" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
+            Cancel
+          </button>
+          <button type="submit" [disabled]="roleForm.invalid" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50">
+            Create Role
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

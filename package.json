@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate:api": "rm -rf ./src/generated && JAVA_OPTS='-Dio.swagger.parser.util.RemoteUrl.trustAll=true -Dio.swagger.v3.parser.util.RemoteUrl.trustAll=true' npx @openapitools/openapi-generator-cli generate -i https://localhost:5001/swagger/v1/swagger.json -g typescript-angular -o ./src/generated/api --additional-properties=providedInRoot=true,stringEnums=true --skip-validate-spec",
+    "build-prod": "ng build --configuration=production",
+    "build-staging": "ng build --configuration=staging"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^19.0.0",
     "@angular/router": "^19.0.0",
     "@tailwindcss/postcss": "^4.1.8",
+    "jwt-decode": "^4.0.0",
     "postcss": "^8.5.4",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.8",
@@ -29,6 +33,7 @@
     "@angular-devkit/build-angular": "^19.0.6",
     "@angular/cli": "^19.0.6",
     "@angular/compiler-cli": "^19.0.0",
+    "@openapitools/openapi-generator-cli": "^2.20.2",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",

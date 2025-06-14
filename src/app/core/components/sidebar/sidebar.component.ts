@@ -2,6 +2,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NavigationService } from '../../services/navigation.service';
+import { AuthService } from '../../services/auth.service';
 
 interface NavItem {
   label: string;
@@ -18,7 +19,7 @@ interface NavItem {
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
-  currentRole = 'super-admin'; // Ideally fetched from auth service
+  currentRole = ''; // Ideally fetched from auth service
   navItems: NavItem[] = [];
   userName = 'Comfort';
   userAvatar = 'Nyatsine Comfort';
@@ -26,7 +27,10 @@ export class SidebarComponent {
   activeSubmenu: string | null = null;
 
 
-  constructor(private navService: NavigationService) {}
+  constructor(private navService: NavigationService, 
+    private authService: AuthService) {
+      this.currentRole = this.authService.getUserRole() as string;
+    }
 
   ngOnInit(): void {
     this.navItems = this.navService.getNavItems(this.currentRole);

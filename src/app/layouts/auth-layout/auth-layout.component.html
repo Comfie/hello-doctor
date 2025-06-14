@@ -1,24 +1,19 @@
 <div class="flex h-screen overflow-hidden">
-  <!-- Sidebar (fixed height, no scroll) -->
+  <app-spinner></app-spinner>
   <app-sidebar></app-sidebar>
 
-  <!-- Main content -->
   <div class="flex flex-col flex-1 overflow-hidden">
     
-    <!-- Header -->
     <app-header
       [isAuthenticated]="true"
-      [userRole]="'super-admin'"
       [userName]="'Comfort Osei'"
       [userAvatar]="'assets/default-avatar.png'">
     </app-header>
 
-    <!-- Scrollable page content -->
     <main class="flex-1 overflow-y-auto p-4">
       <router-outlet></router-outlet>
     </main>
 
-    <!-- Footer -->
     <app-footer-simple></app-footer-simple>
   </div>
 </div>

@@ -5,6 +5,8 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { networkInterceptor } from './core/interceptors/network.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { Configuration } from '../.../../generated/api';
+import { environment } from '../environments/environments';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,5 +14,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(withInterceptors([networkInterceptor])),
+    provideHttpClient(),
+    {
+      provide: Configuration,
+      useFactory: () => new Configuration({ basePath: environment.apiBaseUrl }),
+    }
   ],
 };
