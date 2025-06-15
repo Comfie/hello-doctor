@@ -12,6 +12,7 @@
 export interface UserRoleResponse { 
     id?: string | null;
     roleName?: string | null;
+    numberOfUsers?: number;
     isDeleted?: boolean;
     description?: string | null;
 }

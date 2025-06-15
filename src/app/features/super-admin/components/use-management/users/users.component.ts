@@ -2,6 +2,7 @@ import { NgClass, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { last } from 'rxjs';
+import { SystemAdminService } from '../../../../../../generated/api';
 
 @Component({
   selector: 'app-users',
@@ -11,16 +12,23 @@ import { last } from 'rxjs';
 })
 export class UsersComponent implements OnInit {
 
-  users = [
-    { id: 1, name: 'John Doe', email: 'G0OjP@example.com', role: 'Admin', status: 'Active', lastActive: '3 hours ago' },
-    { id: 2, name: 'Jane Smith', email: '9dM8a@example.com', role: 'User', status: 'Inactive', lastActive: '1 day ago' },  
-    { id: 3, name: 'Alice Johnson', email: 'R4p9X@example.com', role: 'Admin', status: 'Active', lastActive: '2 days ago' },
-    { id: 4, name: 'Bob Brown', email: 'vHq9I@example.com', role: 'User', status: 'Inactive', lastActive: '1 week ago' },
-  ];
+  users: any[] = []; 
 
-  constructor() { }
+  constructor(private systemAdminService: SystemAdminService) { }
 
   ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.systemAdminService.apiV1SystemAdminGetAllUsersGet().pipe(last()).subscribe({
+      next: (response: any) => {
+        this.users = response;
+      },
+      error: (error) => {
+        console.error('Error loading users:', error);
+      }
+    });
   }
 
 }

@@ -17,5 +17,6 @@ export interface UserDetailsResponse {
     lastName?: string | null;
     phoneNumber?: string | null;
     role?: string | null;
+    isActive?: boolean;
 }
 
