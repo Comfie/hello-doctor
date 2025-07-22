@@ -15,6 +15,7 @@ import {
 
 @Component({
   selector: 'app-role-management',
+  standalone: true,
   imports: [NgIf, NgFor, ReactiveFormsModule, FormsModule, NgClass],
   templateUrl: './role-management.component.html',
   styleUrls: ['./role-management.component.css'],
@@ -28,8 +29,21 @@ export class RoleManagementComponent implements OnInit {
   selectedUserId: string | null = null;
   roleToAssign: string | null = null;
 
+  page = 1;
+  pageSize = 5;
+  totalRoles = 0;
+
   showRoleModal = false;
   roleForm!: FormGroup;
+
+  get pagedRoles() {
+    const start = (this.page - 1) * this.pageSize;
+    return this.roles.slice(start, start + this.pageSize);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalRoles / this.pageSize);
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -53,8 +67,8 @@ export class RoleManagementComponent implements OnInit {
     this.roleService.apiV1SystemAdminGetRolesGet().subscribe({
       next: (roles: any) => {
         this.roles = roles;
-        console.log(this.roles);
-        this.activeRoles = roles.filter(
+        this.totalRoles = this.roles.length;
+        this.activeRoles = this.roles.filter(
           (role: any) => role.isDeleted === false
         );
       },
@@ -84,6 +98,10 @@ export class RoleManagementComponent implements OnInit {
           console.error('Failed to load user roles', err);
         },
       });
+  }
+
+  onPageChange(newPage: number) {
+    this.page = newPage;
   }
 
   openCreateRoleModal(): void {

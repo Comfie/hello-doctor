@@ -6,7 +6,7 @@
         <h1 class="text-2xl font-bold text-gray-900">User Management</h1>
         <p class="mt-1 text-sm text-gray-500">Manage all system users and permissions</p>
       </div>
-      <button routerLink="/super-admin/users/new" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <button (click)="openCreateUserModal()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
         </svg>
@@ -84,11 +84,11 @@
               <div class="text-sm text-gray-900">{{ user.role }}</div>
             </td>
              <td class="px-6 py-4 whitespace-nowrap">
-                <span 
+                <span
                   [ngClass]="{
                     'bg-green-100 text-green-800': user.isActive === true,
                     'bg-red-100 text-red-800': user.isActive === false
-                  }" 
+                  }"
                   class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
                 >
                   {{ user.isActive === false ? 'Inactive' : 'Active' }}
@@ -113,7 +113,7 @@
           </tr>
         </tbody>
       </table>
-      
+
       <!-- Pagination -->
       <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
@@ -144,4 +144,54 @@
       </div>
     </div>
   </main>
+</div>
+
+<!-- Create User Modal -->
+<div
+  *ngIf="showUserModal"
+  class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50 p-4"
+>
+  <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h3 class="text-lg font-medium text-gray-900">Create New User</h3>
+    </div>
+    <div class="px-6 py-4">
+      <form>
+        <div class="mb-4">
+          <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+          <input type="text" id="firstName" [(ngModel)]="newUser.firstname" name="firstName" required class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+          <input type="text" id="lastName" [(ngModel)]="newUser.lastname" name="lastName" required class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="email" [(ngModel)]="newUser.email" name="email" required class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        </div>
+        <div class="mb-4">
+          <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+          <select id="role" [(ngModel)]="newUser.role" name="role" required class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <option value="">Select Role</option>
+            <option value="Super Admin">Super Admin</option>
+            <option value="Pharmacy Admin">Pharmacy Admin</option>
+            <option value="Pharmacist">Pharmacist</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Main Member">Main Member</option>
+          </select>
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" (click)="closeRoleModal()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            Cancel
+          </button>
+          <button type="submit" (click)="createUser()"
+          [disabled]="!newUser.firstname || !newUser.lastname || !newUser.email || !newUser.role"
+           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Create User
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
 </div>
