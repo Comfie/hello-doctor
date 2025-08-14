@@ -8,6 +8,18 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <app-root></app-root>
+  <body class="bg-white dark:bg-black">
+    <app-root></app-root>
+  </body>
 </body>
+<script>
+  const theme = localStorage.getItem('theme');
+  const browserDark = window.matchMedia('(prefers-color-scheme: dark)').matches;if (theme !== null) {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  } else if (browserDark) {
+    document.documentElement.classList.add('dark');
+  }
+</script>
 </html>

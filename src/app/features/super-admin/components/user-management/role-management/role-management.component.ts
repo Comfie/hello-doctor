@@ -1,4 +1,4 @@
-import { ChangeRoleStatusCommand } from './../../../../../../generated/api/model/changeRoleStatusCommand';
+import { ChangeRoleStatusCommand } from '../../../../../../generated/api/model/changeRoleStatusCommand';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {

@@ -26,6 +26,8 @@ export class AuthGuard implements CanActivate {
       });
     }
 
+    console.log('Required Role:', requiredRole);
+
     // Check if user has the required role
     if (!this.authService.isInRole(requiredRole)) {
       this.toastService.show(

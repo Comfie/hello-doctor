@@ -1,20 +1,20 @@
-<aside class="flex flex-col h-screen bg-white border-r border-gray-200 transition-all duration-300 ease-in-out"
+<aside class="flex flex-col h-screen bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 border-r border-gray-200 dark:border-gray-700 transition-all duration-300 ease-in-out"
   [class.w-64]="isExpanded" [class.w-20]="!isExpanded">
   <!-- Logo Section -->
-  <div class="flex items-center justify-between p-4 border-b border-gray-200">
+  <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
     <div class="flex items-center" *ngIf="isExpanded">
       <div class="bg-indigo-600 rounded-lg w-8 h-8 flex items-center justify-center">
         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
         </svg>
       </div>
-      <span class="ml-3 text-xl font-bold text-gray-800">Hello Doctor</span>
+      <span class="ml-3 text-xl font-bold text-gray-800 dark:text-gray-100">Hello Doctor</span>
     </div>
 
-    <button (click)="isExpanded = !isExpanded" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none">
-      <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="isExpanded ? 
-              'M4 6h16M4 12h16M4 18h7' : 
+    <button type="button" title="Toggle sidebar" (click)="isExpanded = !isExpanded" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
+      <svg class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="isExpanded ?
+              'M4 6h16M4 12h16M4 18h7' :
               'M4 6h16M4 12h16M4 18h16'"></path>
       </svg>
     </button>
@@ -23,12 +23,12 @@
   <!-- Navigation and profile wrapper -->
   <div class="flex flex-col flex-1 overflow-hidden">
     <!-- Navigation (scrollable) -->
-    <nav class="flex-1 overflow-y-auto py-4" style="max-height: calc(100vh - 160px);">
+    <nav class="flex-1 overflow-y-auto py-4 max-h-[calc(100vh-160px)]">
       <ul>
         <li *ngFor="let item of navItems">
           <div *ngIf="!item.children; else withChildren">
-            <a [routerLink]="item.route" routerLinkActive="bg-indigo-50 text-indigo-700"
-              class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+            <a [routerLink]="item.route" routerLinkActive="bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300"
+              class="flex items-center px-4 py-3 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon"></path>
               </svg>
@@ -38,8 +38,8 @@
 
           <ng-template #withChildren>
             <div>
-              <button (click)="toggleSubmenu(item.label)"
-                class="flex items-center justify-between w-full px-4 py-3 text-gray-600 hover:bg-gray-100 transition-colors duration-200">
+              <button type="button" title="Toggle submenu" (click)="toggleSubmenu(item.label)"
+                class="flex items-center justify-between w-full px-4 py-3 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200">
                 <div class="flex items-center">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon"></path>
@@ -54,11 +54,11 @@
               </button>
 
               <div *ngIf="isExpanded && activeSubmenu === item.label"
-                class="pl-12 bg-gray-50 overflow-hidden transition-all duration-300">
+                class="pl-12 bg-gray-50 dark:bg-gray-900 overflow-hidden transition-all duration-300">
                 <ul>
                   <li *ngFor="let child of item.children">
-                    <a [routerLink]="child.route" routerLinkActive="text-indigo-600 font-medium"
-                      class="block py-2 px-4 text-sm text-gray-600 hover:text-indigo-600 transition-colors duration-200">
+                    <a [routerLink]="child.route" routerLinkActive="text-indigo-600 dark:text-indigo-400 font-medium"
+                      class="block py-2 px-4 text-sm text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200">
                       {{ child.label }}
                     </a>
                   </li>
@@ -71,12 +71,12 @@
     </nav>
 
     <!-- Profile at bottom (fixed) -->
-    <div class="mt-auto border-t border-gray-200 p-4">
+    <div class="mt-auto border-t border-gray-200 dark:border-gray-700 p-4">
       <div class="flex items-center" *ngIf="isExpanded">
         <img [src]="userAvatar" alt="User" class="w-10 h-10 rounded-full object-cover">
         <div class="ml-3">
-          <p class="text-sm font-medium text-gray-800">{{ userName }}</p>
-          <p class="text-xs text-gray-500 capitalize">{{ currentRole.replace('-', ' ') }}</p>
+          <p class="text-sm font-medium text-gray-800 dark:text-gray-100">{{ userName }}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 capitalize">{{ currentRole.replace('-', ' ') }}</p>
         </div>
       </div>
       <div class="flex justify-center" *ngIf="!isExpanded">

@@ -1,5 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -14,7 +15,7 @@ export class HeaderComponent implements OnInit {
   userRole: 'SuperAdministrator' | 'PharmacyAdministrator' | 'MainMember' | 'Pharmacist' | 'Doctor' | null = null;
   @Input() userName = '';
   @Input() userAvatar = '';
-  
+
   showMobileMenu = false;
   showUserDropdown = false;
   isSidebarCollapsed = false;
@@ -41,7 +42,7 @@ export class HeaderComponent implements OnInit {
     ]
   };
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, public theme: ThemeService) {
     this.userRole = this.authService.getUserRole() as 'SuperAdministrator' | 'PharmacyAdministrator' | 'MainMember' | 'Pharmacist' | 'Doctor' | null;
     this.isAuthenticated = this.authService.isAuthenticated();
   }

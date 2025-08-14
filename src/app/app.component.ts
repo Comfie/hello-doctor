@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ThemeService } from './core/services/theme.service';
 import { RouterOutlet } from '@angular/router';
 import { ToastComponent } from './shared/toast/toast.component';
 
@@ -6,8 +7,17 @@ import { ToastComponent } from './shared/toast/toast.component';
   selector: 'app-root',
   imports: [RouterOutlet, ToastComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'hello-doctor';
+
+  constructor(private themeService: ThemeService) {
+  }
+
+  ngOnInit() {
+    this.themeService.init();
+  }
 }
+
+

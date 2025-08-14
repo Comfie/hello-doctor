@@ -1,0 +1,36 @@
+<div class="p-4">
+  <a routerLink="/super-admin/pharmacies" class="text-sm text-indigo-600">← Back to list</a>
+  <h1 class="text-2xl font-semibold text-gray-800 mt-2">Create Pharmacy</h1>
+
+  <div class="bg-white shadow rounded-lg p-4 mt-4">
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4" (ngSubmit)="create()">
+      <div>
+        <label class="block text-sm text-gray-600">Name</label>
+        <input [(ngModel)]="model.name" name="name" class="mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500" required />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600">Contact Person</label>
+        <input [(ngModel)]="model.contactPerson" name="contactPerson" class="mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500" />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600">Contact Email</label>
+        <input [(ngModel)]="model.contactEmail" name="contactEmail" type="email" class="mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500" />
+      </div>
+      <div>
+        <label class="block text-sm text-gray-600">Contact Number</label>
+        <input [(ngModel)]="model.contactNumber" name="contactNumber" class="mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500" />
+      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm text-gray-600">Address</label>
+        <textarea [(ngModel)]="model.address" name="address" rows="3" class="mt-1 w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+      </div>
+
+      <div class="md:col-span-2 flex justify-end">
+        <button type="submit" [disabled]="saving" class="px-4 py-2 rounded-md bg-indigo-600 text-white hover:bg-indigo-700">
+          {{ saving ? 'Creating...' : 'Create Pharmacy' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+

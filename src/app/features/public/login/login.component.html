@@ -1,5 +1,5 @@
 <!-- login.component.html -->
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <div class="flex justify-center">
       <div class="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center">
@@ -8,18 +8,18 @@
         </svg>
       </div>
     </div>
-    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-gray-100">
       Sign in to your account
     </h2>
-    <p class="mt-2 text-center text-sm text-gray-600">
+    <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
       Or <a routerLink="/register" class="font-medium text-indigo-600 hover:text-indigo-500">create a new account</a>
     </p>
   </div>
 
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+    <div class="bg-white dark:bg-gray-800 dark:text-gray-100 py-8 px-4 shadow sm:rounded-lg sm:px-10">
       <!-- Error Message -->
-      <div *ngIf="errorMessage" class="mb-4 bg-red-50 border-l-4 border-red-500 p-4">
+      <div *ngIf="errorMessage" class="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,13 +27,13 @@
             </svg>
           </div>
           <div class="ml-3">
-            <p class="text-sm text-red-700">{{errorMessage}}</p>
+            <p class="text-sm text-red-700 dark:text-red-300">{{errorMessage}}</p>
           </div>
         </div>
       </div>
 
       <!-- Password Reset Success Message -->
-      <div *ngIf="showResetPassword" class="mb-4 bg-blue-50 border-l-4 border-blue-500 p-4">
+      <div *ngIf="showResetPassword" class="mb-4 bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 dark:border-blue-600 p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,17 +41,17 @@
             </svg>
           </div>
           <div class="ml-3">
-            <p class="text-sm text-blue-700">Password reset instructions have been sent to your email.</p>
+            <p class="text-sm text-blue-700 dark:text-blue-300">Password reset instructions have been sent to your email.</p>
           </div>
         </div>
       </div>
 
       <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!showResetPassword">
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email address *</label>
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address *</label>
           <div class="mt-1">
             <input id="email" name="email" type="email" autocomplete="email" formControlName="email"
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   class="mt-1 block px-3 py-2 w-full rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                    [class.border-red-300]="f.email.invalid && (f.email.dirty || f.email.touched)"
                    [class.text-red-900]="f.email.invalid && (f.email.dirty || f.email.touched)">
             <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="mt-1 text-sm text-red-600">
@@ -62,15 +62,15 @@
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700">Password *</label>
+          <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password *</label>
           <div class="mt-1 relative rounded-md shadow-sm">
             <input [type]="passwordVisible ? 'text' : 'password'" id="password" name="password" formControlName="password"
                    autocomplete="current-password"
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   class="mt-1 block px-3 py-2 w-full rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                    [class.border-red-300]="f.password.invalid && (f.password.dirty || f.password.touched)"
                    [class.text-red-900]="f.password.invalid && (f.password.dirty || f.password.touched)">
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-              <button type="button" (click)="togglePasswordVisibility()" class="text-gray-500 hover:text-gray-700">
+              <button type="button" (click)="togglePasswordVisibility()" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200" aria-label="Toggle password visibility" title="Toggle password visibility">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path *ngIf="!passwordVisible" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -86,8 +86,8 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center">
             <input id="remember-me" name="remember-me" type="checkbox" formControlName="rememberMe"
-                   class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-            <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                   class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-gray-700 rounded">
+            <label for="remember-me" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
               Remember me
             </label>
           </div>
@@ -114,16 +114,16 @@
       <!-- Password Reset Form (hidden by default) -->
       <form class="space-y-6" *ngIf="showResetPassword">
         <div>
-          <label for="reset-email" class="block text-sm font-medium text-gray-700">Email address</label>
+          <label for="reset-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email address</label>
           <div class="mt-1">
             <input id="reset-email" name="reset-email" type="email" autocomplete="email"
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                   class="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
           </div>
         </div>
 
         <div class="flex items-center justify-between">
           <button type="button" (click)="showResetPassword = false"
-                  class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 focus:ring-indigo-500">
             Back to login
           </button>
           <button type="button"
@@ -136,10 +136,10 @@
       <div class="mt-6">
         <div class="relative">
           <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-300"></div>
+            <div class="w-full border-t border-gray-300 dark:border-gray-700"></div>
           </div>
           <div class="relative flex justify-center text-sm">
-            <span class="px-2 bg-white text-gray-500">
+            <span class="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
               Or continue with
             </span>
           </div>
@@ -147,7 +147,7 @@
 
         <div class="mt-6 grid grid-cols-2 gap-3">
           <div>
-            <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path fill-rule="evenodd" d="M20 10c0-5.523-4.477-10-10-10S0 4.477 0 10c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V10h2.54V7.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V10h2.773l-.443 2.89h-2.33v6.988C16.343 19.128 20 14.991 20 10z" clip-rule="evenodd"></path>
               </svg>
@@ -155,7 +155,7 @@
           </div>
 
           <div>
-            <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+            <a href="#" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-700 rounded-md shadow-sm bg-white dark:bg-gray-800 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"></path>
               </svg>

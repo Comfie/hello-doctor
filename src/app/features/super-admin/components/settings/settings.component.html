@@ -1,6 +1,6 @@
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-gray-100 py-8">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-white shadow rounded-lg overflow-hidden">
+    <div class="bg-white dark:bg-gray-800 dark:text-gray-100 shadow rounded-lg overflow-hidden">
       <!-- Header -->
       <div class="bg-indigo-700 px-6 py-6">
         <h2 class="text-2xl font-bold text-white">System Settings</h2>
@@ -8,33 +8,43 @@
       </div>
 
       <!-- Tabs Navigation -->
-      <div class="border-b border-gray-200">
+      <div class="border-b border-gray-200 dark:border-gray-700">
         <nav class="flex -mb-px">
-          <button *ngFor="let tab of tabs" 
+          <button type="button" *ngFor="let tab of tabs"
                   (click)="currentTab = tab.id"
                   [class.border-indigo-500]="currentTab === tab.id"
                   [class.text-indigo-600]="currentTab === tab.id"
-                  class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm">
+                  class="whitespace-nowrap py-4 px-6 border-b-2 font-medium text-sm text-gray-600 dark:text-gray-300">
             {{ tab.name }}
           </button>
         </nav>
       </div>
 
       <!-- Tab Contents -->
-      <div class="p-6">
+      <div class="p-6 text-gray-900 dark:text-gray-100">
         <!-- General Settings -->
         <div *ngIf="currentTab === 'general'" class="space-y-6">
           <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-4">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Theme</label>
+              <select [(ngModel)]="selectedTheme" (change)="onThemeSelect($event)"
+                      class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="system">System</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-4">
               <label class="block text-sm font-medium text-gray-700">System Name</label>
-              <input type="text" [(ngModel)]="settings.systemName" 
-                     class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <input type="text" [(ngModel)]="settings.systemName"
+                     class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
             </div>
 
             <div class="sm:col-span-4">
               <label class="block text-sm font-medium text-gray-700">Default Timezone</label>
-              <select [(ngModel)]="settings.timezone" 
-                      class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <select [(ngModel)]="settings.timezone"
+                      class="mt-1 block w-full px-3 py-2 rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option *ngFor="let tz of timezones" [value]="tz">{{ tz }}</option>
               </select>
             </div>
@@ -42,12 +52,12 @@
             <div class="sm:col-span-6">
               <div class="flex items-start">
                 <div class="flex-shrink-0">
-                  <input type="checkbox" [(ngModel)]="settings.maintenanceMode" 
+                  <input type="checkbox" [(ngModel)]="settings.maintenanceMode"
                          class="h-4 w-4 rounded px-3 py-2 border-gray-300 text-indigo-600 focus:ring-indigo-500">
                 </div>
                 <div class="ml-3 text-sm">
-                  <label class="font-medium text-gray-700">Maintenance Mode</label>
-                  <p class="text-gray-500">When enabled, only administrators can access the system</p>
+                  <label class="font-medium text-gray-700 dark:text-gray-300">Maintenance Mode</label>
+                  <p class="text-gray-500 dark:text-gray-400">When enabled, only administrators can access the system</p>
                 </div>
               </div>
             </div>
@@ -60,7 +70,7 @@
             <div class="sm:col-span-6">
               <div class="flex items-start">
                 <div class="flex-shrink-0">
-                  <input type="checkbox" [(ngModel)]="settings.require2FA" 
+                  <input type="checkbox" [(ngModel)]="settings.require2FA"
                          class="h-4 w-4 px-3 py-2  rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                 </div>
                 <div class="ml-3 text-sm">
@@ -72,8 +82,8 @@
 
             <div class="sm:col-span-4">
               <label class="block text-sm font-medium text-gray-700">Password Policy</label>
-              <select [(ngModel)]="settings.passwordPolicy" 
-                      class="mt-1 block w-full px-3 py-2  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <select [(ngModel)]="settings.passwordPolicy"
+                      class="mt-1 block w-full px-3 py-2  rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="low">Low (6+ characters)</option>
                 <option value="medium">Medium (8+ chars with mix)</option>
                 <option value="high">High (12+ chars with special)</option>
@@ -82,8 +92,8 @@
 
             <div class="sm:col-span-4">
               <label class="block text-sm font-medium text-gray-700">Session Timeout</label>
-              <select [(ngModel)]="settings.sessionTimeout" 
-                      class="mt-1 block w-full px-3 py-2  rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+              <select [(ngModel)]="settings.sessionTimeout"
+                      class="mt-1 block w-full px-3 py-2  rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                 <option value="15">15 minutes</option>
                 <option value="30">30 minutes</option>
                 <option value="60">1 hour</option>
@@ -97,13 +107,13 @@
         <div *ngIf="currentTab === 'notifications'" class="space-y-6">
           <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-6">
-              <h3 class="text-lg font-medium text-gray-900">Email Notifications</h3>
+              <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100">Email Notifications</h3>
             </div>
 
             <div class="sm:col-span-6">
               <div class="flex items-start">
                 <div class="flex-shrink-0">
-                  <input type="checkbox" [(ngModel)]="settings.notifications.systemAlerts" 
+                  <input type="checkbox" [(ngModel)]="settings.notifications.systemAlerts"
                          class="h-4 w-4 px-3 py-2  rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                 </div>
                 <div class="ml-3 text-sm">
@@ -116,7 +126,7 @@
             <div class="sm:col-span-6">
               <div class="flex items-start">
                 <div class="flex-shrink-0">
-                  <input type="checkbox" [(ngModel)]="settings.notifications.securityEvents" 
+                  <input type="checkbox" [(ngModel)]="settings.notifications.securityEvents"
                          class="h-4 w-4 px-3 py-2  rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
                 </div>
                 <div class="ml-3 text-sm">
@@ -130,11 +140,11 @@
 
         <!-- Save Button -->
         <div class="mt-8 flex justify-end">
-          <button type="button" 
+          <button type="button"
                   class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Cancel
           </button>
-          <button type="button" 
+          <button type="button"
                   (click)="saveSettings()"
                   class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Save Changes

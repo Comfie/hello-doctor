@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThemeService } from '../../../../core/services/theme.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class SettingsComponent implements OnInit {
 
 currentTab = 'general';
-  
+
   tabs = [
     { id: 'general', name: 'General' },
     { id: 'security', name: 'Security' },
@@ -45,12 +46,25 @@ currentTab = 'general';
     }
   };
 
-  constructor() { }
+  selectedTheme: 'light'|'dark'|'system' = 'light';
+
+  constructor(private theme: ThemeService) { }
 
   ngOnInit(): void {
     // In real app, load settings from service
     this.loadSettings();
+    // initialize selectedTheme from saved mode
+    const saved = this.theme.getSavedMode();
+    this.selectedTheme = saved as any;
   }
+
+  onThemeSelect(event: Event) {
+    const select = event.target as HTMLSelectElement | null;
+    const value = (select?.value ?? 'light') as 'light'|'dark'|'system';
+    this.selectedTheme = value;
+    this.theme.setTheme(value);
+  }
+
 
   loadSettings(): void {
     // Replace with actual API call

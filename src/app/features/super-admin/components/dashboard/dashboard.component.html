@@ -1,14 +1,14 @@
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
   <main class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
     <!-- Welcome Banner -->
     <div class="mb-8">
-      <h1 class="text-2xl font-bold text-gray-900">Super Admin Dashboard</h1>
-      <p class="mt-1 text-sm text-gray-500">System overview and quick actions</p>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Super Admin Dashboard</h1>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">System overview and quick actions</p>
     </div>
 
     <!-- Stats Cards -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-      <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="bg-white dark:bg-gray-800 dark:text-gray-100 overflow-hidden shadow rounded-lg">
         <div class="px-4 py-5 sm:p-6">
           <div class="flex items-center">
             <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
@@ -17,17 +17,17 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">Total Users</dt>
-              <dd class="flex items-baseline">
-                <div class="text-2xl font-semibold text-gray-900">{{ 100 }}</div>
-              </dd>
+              <div class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Users</div>
+              <div class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100">{{ totalUsers }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- More stats cards... -->
-      <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="bg-white dark:bg-gray-800 dark:text-gray-100 overflow-hidden shadow rounded-lg">
         <div class="px-4 py-5 sm:p-6">
           <div class="flex items-center">
             <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
@@ -36,16 +36,16 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">Active Pharmacies</dt>
-              <dd class="flex items-baseline">
-                <div class="text-2xl font-semibold text-gray-900">{{ 60 }}</div>
-              </dd>
+              <div class="text-sm font-medium text-gray-500 truncate">Active Pharmacies</div>
+              <div class="flex items-baseline">
+                <div class="text-2xl font-semibold text-gray-900">{{ activePharmacies }}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="bg-white overflow-hidden shadow rounded-lg">
+
+      <div class="bg-white dark:bg-gray-800 dark:text-gray-100 overflow-hidden shadow rounded-lg">
         <div class="px-4 py-5 sm:p-6">
           <div class="flex items-center">
             <div class="flex-shrink-0 bg-amber-500 rounded-md p-3">
@@ -54,16 +54,16 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">Pending Issues</dt>
-              <dd class="flex items-baseline">
+              <div class="text-sm font-medium text-gray-500 truncate">Pending Issues</div>
+              <div class="flex items-baseline">
                 <div class="text-2xl font-semibold text-gray-900">{{ 8 }}</div>
-              </dd>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <div class="bg-white overflow-hidden shadow rounded-lg">
+
+      <div class="bg-white dark:bg-gray-800 dark:text-gray-100 overflow-hidden shadow rounded-lg">
         <div class="px-4 py-5 sm:p-6">
           <div class="flex items-center">
             <div class="flex-shrink-0 bg-red-500 rounded-md p-3">
@@ -72,10 +72,10 @@
               </svg>
             </div>
             <div class="ml-5 w-0 flex-1">
-              <dt class="text-sm font-medium text-gray-500 truncate">System Health</dt>
-              <dd class="flex items-baseline">
+              <div class="text-sm font-medium text-gray-500 truncate">System Health</div>
+              <div class="flex items-baseline">
                 <div class="text-2xl font-semibold text-gray-900">Healthy</div>
-              </dd>
+              </div>
             </div>
           </div>
         </div>
@@ -86,79 +86,38 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <!-- Recent Activity -->
       <div class="lg:col-span-2">
-        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 dark:text-gray-100 shadow overflow-hidden sm:rounded-lg">
           <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Recent System Activity</h3>
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Recent System Activity</h3>
           </div>
-          <div class="bg-white overflow-hidden">
-            <ul class="divide-y divide-gray-200">
-              <li *ngFor="let activity of recentActivities" class="px-6 py-2 hover:bg-gray-50">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <div class="text-sm font-medium text-gray-900">{{ activity.action }}</div>
-                    <div class="ml-4 text-sm text-gray-500">by {{ activity.user }}</div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-sm text-gray-500">{{ activity.date }}</div>
-                    <span [ngClass]="{
-                      'bg-green-100 text-green-800': activity.status === 'Completed',
-                      'bg-yellow-100 text-yellow-800': activity.status === 'Pending',
-                      'bg-blue-100 text-blue-800': activity.status === 'Processing'
-                    }" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
-                      {{ activity.status }}
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <div class="px-6 py-4 bg-gray-50 text-right">
-              <a routerLink="/super-admin/audit-logs" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">View all activity</a>
-            </div>
+          <div class="p-6 text-sm text-gray-500 dark:text-gray-400">
+            Recent activity is not available in this build.
           </div>
         </div>
       </div>
 
       <!-- Quick Actions -->
       <div>
-        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="bg-white dark:bg-gray-800 dark:text-gray-100 shadow overflow-hidden sm:rounded-lg">
           <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">Quick Actions</h3>
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100">Quick Actions</h3>
           </div>
           <div class="px-6 py-4 grid grid-cols-2 gap-4">
-            <a *ngFor="let action of quickActions" 
+            <a *ngFor="let action of quickActions"
                [routerLink]="action.link"
-               class="flex flex-col items-center justify-center p-4 rounded-lg border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-colors">
+               class="flex flex-col items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-indigo-300 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
               <div class="flex items-center justify-center h-10 w-10 rounded-md bg-indigo-100 text-indigo-600 mb-2">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="action.icon"></path>
                 </svg>
               </div>
-              <span class="text-sm font-medium text-gray-700 text-center">{{ action.name }}</span>
+              <span class="text-sm font-medium text-gray-700 dark:text-gray-300 text-center">{{ action.name }}</span>
             </a>
           </div>
         </div>
 
         <!-- System Status -->
-        <div class="mt-6 bg-white shadow overflow-hidden sm:rounded-lg">
-          <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">System Status</h3>
-          </div>
-          <div class="px-6 py-4">
-            <ul class="space-y-4">
-              <li *ngFor="let service of systemServices" class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <span class="h-2 w-2 rounded-full mr-3" [ngClass]="{
-                    'bg-green-500': service.status === 'Operational',
-                    'bg-yellow-500': service.status === 'Degraded',
-                    'bg-red-500': service.status === 'Down'
-                  }"></span>
-                  <span class="text-sm font-medium text-gray-900">{{ service.name }}</span>
-                </div>
-                <span class="text-sm text-gray-500">{{ service.status }}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <!-- System Status section removed: no API for system health -->
       </div>
     </div>
   </main>

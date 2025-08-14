@@ -1,5 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { ThemeService } from '../../services/theme.service';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -9,10 +10,10 @@ import { Router, RouterLink } from '@angular/router';
   styleUrls: ['./header-public.component.css']
 })
 export class HeaderPublicComponent {
-  
+
   showMobileMenu = false;
   showUserDropdown = false;
-  
+
   // Navigation items for unauthenticated users
   publicNavItems = [
     { label: 'Home', route: '/' },
@@ -24,7 +25,7 @@ export class HeaderPublicComponent {
   ];
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public theme: ThemeService) {}
 
 
   navigateTo(route: string) {

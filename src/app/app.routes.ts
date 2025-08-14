@@ -26,6 +26,7 @@ export const routes: Routes = [
     path: 'main-member',
     loadChildren: () =>
       import('./features/main-member/main-member.module').then((m) => m.MainMemberModule),
+    canActivate: [AuthGuard],
     data: {
       preload: true,
       title: 'Main Member',

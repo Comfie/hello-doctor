@@ -1,0 +1,26 @@
+<div class="p-4 text-gray-900 dark:text-gray-100">
+  <a routerLink="/super-admin/prescriptions" class="text-sm text-indigo-600">← Back to list</a>
+  <h1 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mt-2">Prescription Details</h1>
+
+  <div class="bg-white dark:bg-gray-800 dark:text-gray-100 shadow rounded-lg p-4 mt-4" *ngIf="data as d">
+    <div class="text-gray-700 dark:text-gray-300">Prescription ID: {{ d.id }}</div>
+    <div class="text-gray-700 dark:text-gray-300">Status: {{ d.status }}</div>
+    <div class="text-gray-700 dark:text-gray-300">Member: {{ d.memberEmail }}</div>
+    <div class="text-gray-700 dark:text-gray-300">Beneficiary: {{ d.beneficiaryName }} ({{ d.beneficiaryId }})</div>
+    <div class="text-gray-700 dark:text-gray-300">Issued: {{ d.issuedDate | date:'medium' }}</div>
+    <div class="text-gray-700 dark:text-gray-300">Pharmacy: {{ pharmacyName || 'N/A' }}</div>
+    <div class="text-gray-700 dark:text-gray-300" *ngIf="d.notes">Notes: {{ d.notes }}</div>
+
+    <div class="mt-4" *ngIf="d.fileIds?.length">
+      <h2 class="text-lg font-medium mb-2">Files</h2>
+      <ul class="list-disc pl-5">
+        <li *ngFor="let fid of d.fileIds; let i = index">
+          <a (click)="download({ id: d.id, fileIds: [fid] })" class="text-indigo-600 hover:text-indigo-800 cursor-pointer">
+            Download file #{{ i + 1 }}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

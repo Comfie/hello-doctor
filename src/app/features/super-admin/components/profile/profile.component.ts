@@ -2,8 +2,9 @@ import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { AuthService } from '../../../core/services/auth.service';
-import { ToastService } from '../../../core/services/toast.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { ToastService } from '../../../../core/services/toast.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +22,7 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private authService: AuthService,
-    private toastService: ToastService 
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +72,7 @@ export class ProfileComponent implements OnInit {
 
   toggleEditMode(): void {
     this.editMode = !this.editMode;
-    
+
     if (this.editMode) {
       // Save original state when entering edit mode
       this.originalFormData = { ...this.profileForm.value };
@@ -85,7 +86,7 @@ export class ProfileComponent implements OnInit {
   cancelEdit(): void {
     this.editMode = false;
     this.profileForm.patchValue(this.originalFormData);
-    
+
     // Clear password fields
     this.profileForm.patchValue({
       currentPassword: '',
@@ -96,29 +97,29 @@ export class ProfileComponent implements OnInit {
 
   handleImageUpload(event: Event): void {
     const input = event.target as HTMLInputElement;
-    
+
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      
+
       // Validate file type
       if (!file.type.match('image.*')) {
         alert('Please select a valid image file (JPEG, PNG, etc.)');
         return;
       }
-      
+
       // Validate file size (max 2MB)
       if (file.size > 2 * 1024 * 1024) {
         alert('Image size should be less than 2MB');
         return;
       }
-      
+
       // Create a preview
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.profileImage = this.sanitizer.bypassSecurityTrustUrl(e.target.result);
       };
       reader.readAsDataURL(file);
-      
+
       // In a real app, you would upload the file to a server here
       // this.uploadProfileImage(file);
     }
@@ -127,20 +128,20 @@ export class ProfileComponent implements OnInit {
   onSubmit(): void {
     if (this.profileForm.valid) {
       const formData = this.profileForm.value;
-      
+
       // Handle password change only if new password is provided
       if (formData.newPassword) {
         // Verify current password first (in a real app)
         console.log('Changing password...');
       }
-      
+
       // In a real app, submit to API
       console.log('Profile updated:', formData);
-      
+
       // Exit edit mode after save
       this.editMode = false;
       this.originalFormData = { ...this.profileForm.value };
-      
+
       // Clear password fields
       this.profileForm.patchValue({
         currentPassword: '',
